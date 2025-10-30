@@ -1,0 +1,68 @@
+{
+  "data": {
+    "Pinjaman": {
+      "current": 45000000,
+      "target": 50000000,
+      "previousDay": 44500000,
+      "previousMonth": 41500000,
+      "previousYear": 38900000,
+      "segments": [
+        { "name": "Micro", "value": 12000000, "target": 15000000 },
+        { "name": "Small", "value": 18000000, "target": 20000000 },
+        { "name": "Consumer", "value": 15000000, "target": 15000000 }
+      ]
+    },
+    "SML": {
+      "current": 8500000,
+      "target": 10000000,
+      "previousDay": 8600000,
+      "previousMonth": 8900000,
+      "previousYear": 9700000,
+      "segments": [
+        { "name": "Micro", "value": 3000000, "target": 3500000 },
+        { "name": "Small", "value": 3500000, "target": 4000000 },
+        { "name": "Consumer", "value": 2000000, "target": 2500000 }
+      ]
+    },
+    "NPL": {
+      "current": 2100000,
+      "target": 1500000,
+      "previousDay": 2150000,
+      "previousMonth": 2320000,
+      "previousYear": 2450000,
+      "segments": [
+        { "name": "Micro", "value": 600000, "target": 400000 },
+        { "name": "Small", "value": 800000, "target": 600000 },
+        { "name": "Consumer", "value": 700000, "target": 500000 }
+      ]
+    },
+    "Recovery": {
+      "current": 3200000,
+      "target": 3500000,
+      "previousDay": 3100000,
+      "previousMonth": 2920000,
+      "previousYear": 2700000,
+      "segments": [
+        { "name": "Micro", "value": 1000000, "target": 1100000 },
+        { "name": "Small", "value": 1200000, "target": 1300000 },
+        { "name": "Consumer", "value": 1000000, "target": 1100000 }
+      ]
+    },
+    "Dana Pihak Ketiga": {
+      "current": 125000000,
+      "target": 130000000,
+      "previousDay": 123000000,
+      "previousMonth": 117800000,
+      "previousYear": 109300000,
+      "segments": [
+        { "name": "Micro - Checking", "value": 20000000, "target": 22000000 },
+        { "name": "Micro - Deposits", "value": 18000000, "target": 19000000 },
+        { "name": "Micro - Savings", "value": 15000000, "target": 16000000 },
+        { "name": "Small - Checking", "value": 25000000, "target": 26000000 },
+        { "name": "Small - Deposits", "value": 28000000, "target": 29000000 },
+        { "name": "Small - Savings", "value": 19000000, "target": 18000000 }
+      ]
+    }
+  },
+  "lastUpdated": "2025-10-30T00:00:00.000Z"
+}
