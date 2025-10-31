@@ -1,17 +1,24 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
-import type { BankingMetrics } from "@/lib/banking-data"
-import { calculateAchievement, getAchievementColor } from "@/lib/achievement-utils"
-import { calculateDifference, getDifferenceColor, formatDifference } from "@/lib/difference-utils"
-import { ArrowLeft } from "lucide-react"
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import type { BankingMetrics } from "@/lib/banking-data";
+import {
+  calculateAchievement,
+  getAchievementColor,
+} from "@/lib/achievement-utils";
+import {
+  calculateDifference,
+  getDifferenceColor,
+  formatDifference,
+} from "@/lib/difference-utils";
+import { ArrowLeft } from "lucide-react";
 
 interface LoopingDisplayProps {
-  bankingData: Record<string, BankingMetrics>
-  onBack: () => void
-  lastUpdated: Date
-  isLoading?: boolean
+  bankingData: Record<string, BankingMetrics>;
+  onBack: () => void;
+  lastUpdated: Date;
+  isLoading?: boolean;
 }
 
 function formatLastUpdated(date: Date): string {
@@ -21,23 +28,28 @@ function formatLastUpdated(date: Date): string {
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
-  })
+  });
 }
 
-export default function LoopingDisplay({ bankingData, onBack, lastUpdated, isLoading = false }: LoopingDisplayProps) {
-  const categories = Object.keys(bankingData)
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isAnimating, setIsAnimating] = useState(true)
+export default function LoopingDisplay({
+  bankingData,
+  onBack,
+  lastUpdated,
+  isLoading = false,
+}: LoopingDisplayProps) {
+  const categories = Object.keys(bankingData);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(true);
 
   useEffect(() => {
-    if (!isAnimating || categories.length === 0) return
+    if (!isAnimating || categories.length === 0) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % categories.length)
-    }, 5000) // Change every 5 seconds
+      setCurrentIndex((prev) => (prev + 1) % categories.length);
+    }, 5000); // Change every 5 seconds
 
-    return () => clearInterval(interval)
-  }, [isAnimating, categories.length])
+    return () => clearInterval(interval);
+  }, [isAnimating, categories.length]);
 
   if (isLoading || categories.length === 0) {
     return (
@@ -47,21 +59,21 @@ export default function LoopingDisplay({ bankingData, onBack, lastUpdated, isLoa
           <p>Loading looping display...</p>
         </div>
       </div>
-    )
+    );
   }
 
-  const category = categories[currentIndex]
-  const data = bankingData[category]
-  const achievement = calculateAchievement(data.current, data.target, category)
-  const colors = getAchievementColor(achievement, true)
+  const category = categories[currentIndex];
+  const data = bankingData[category];
+  const achievement = calculateAchievement(data.current, data.target, category);
+  const colors = getAchievementColor(achievement, true);
 
-  const dtdDifference = calculateDifference(data.current, data.previousDay)
-  const mtdDifference = calculateDifference(data.current, data.previousMonth)
-  const ytdDifference = calculateDifference(data.current, data.previousYear)
+  const dtdDifference = calculateDifference(data.current, data.previousDay);
+  const mtdDifference = calculateDifference(data.current, data.previousMonth);
+  const ytdDifference = calculateDifference(data.current, data.previousYear);
 
-  const dtdColors = getDifferenceColor(dtdDifference, category)
-  const mtdColors = getDifferenceColor(mtdDifference, category)
-  const ytdColors = getDifferenceColor(ytdDifference, category)
+  const dtdColors = getDifferenceColor(dtdDifference, category);
+  const mtdColors = getDifferenceColor(mtdDifference, category);
+  const ytdColors = getDifferenceColor(ytdDifference, category);
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center bg-gradient-to-br from-primary to-primary/80 text-white p-8 relative overflow-hidden">
@@ -85,7 +97,9 @@ export default function LoopingDisplay({ bankingData, onBack, lastUpdated, isLoa
 
       <div className="absolute top-8 right-8 text-right">
         <p className="text-sm text-white/60">Last Updated</p>
-        <p className="text-lg font-semibold text-white">{formatLastUpdated(lastUpdated)}</p>
+        <p className="text-lg font-semibold text-white">
+          {formatLastUpdated(lastUpdated)}
+        </p>
       </div>
 
       {/* Main Content */}
@@ -93,7 +107,9 @@ export default function LoopingDisplay({ bankingData, onBack, lastUpdated, isLoa
         {/* Category Name */}
         <div className="mb-12 animate-fade-in">
           <p className="text-lg text-white/60 mb-4">Current Category</p>
-          <h1 className="text-6xl md:text-7xl font-bold mb-8 text-white">{category}</h1>
+          <h1 className="text-6xl md:text-7xl font-bold mb-8 text-white">
+            {category}
+          </h1>
         </div>
 
         {/* Main Metrics Grid */}
@@ -102,7 +118,7 @@ export default function LoopingDisplay({ bankingData, onBack, lastUpdated, isLoa
           <div className="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10 hover:border-white/30 transition-all">
             <p className="text-white/60 text-sm mb-2">Current Value</p>
             <p className="text-4xl md:text-5xl font-bold text-white">
-              {(data.current.toLocaleString())}
+              {Math.round(data.current).toLocaleString()}
             </p>
           </div>
 
@@ -110,30 +126,46 @@ export default function LoopingDisplay({ bankingData, onBack, lastUpdated, isLoa
           <div className="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10 hover:border-white/30 transition-all">
             <p className="text-white/60 text-sm mb-2">RKA Target</p>
             <p className="text-4xl md:text-5xl font-bold text-white">
-              {(data.target.toLocaleString())}
-              </p>
+              {Math.round(data.target).toLocaleString()}
+            </p>
           </div>
 
           {/* Achievement */}
-          <div className={`bg-white/5 backdrop-blur-md rounded-2xl p-8 border transition-all ${colors.border}`}>
+          <div
+            className={`bg-white/5 backdrop-blur-md rounded-2xl p-8 border transition-all ${colors.border}`}
+          >
             <p className="text-white/60 text-sm mb-2">Achievement</p>
-            <p className={`text-4xl md:text-5xl font-bold ${colors.text}`}>{achievement}%</p>
+            <p className={`text-4xl md:text-5xl font-bold ${colors.text}`}>
+              {achievement}%
+            </p>
           </div>
         </div>
 
         {/* Performance Indicators - Now showing differences as numbers */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className={`bg-white/5 backdrop-blur-md rounded-xl p-6 border ${dtdColors.border}`}>
+          <div
+            className={`bg-white/5 backdrop-blur-md rounded-xl p-6 border ${dtdColors.border}`}
+          >
             <p className="text-white/60 text-xs mb-2">Day-to-Day</p>
-            <p className={`text-2xl font-bold ${dtdColors.text}`}>{formatDifference(dtdDifference)}</p>
+            <p className={`text-2xl font-bold ${dtdColors.text}`}>
+              {formatDifference(Math.round(dtdDifference))}
+            </p>
           </div>
-          <div className={`bg-white/5 backdrop-blur-md rounded-xl p-6 border ${mtdColors.border}`}>
+          <div
+            className={`bg-white/5 backdrop-blur-md rounded-xl p-6 border ${mtdColors.border}`}
+          >
             <p className="text-white/60 text-xs mb-2">Month-to-Date</p>
-            <p className={`text-2xl font-bold ${mtdColors.text}`}>{formatDifference(mtdDifference)}</p>
+            <p className={`text-2xl font-bold ${mtdColors.text}`}>
+              {formatDifference(Math.round(mtdDifference))}
+            </p>
           </div>
-          <div className={`bg-white/5 backdrop-blur-md rounded-xl p-6 border ${ytdColors.border}`}>
+          <div
+            className={`bg-white/5 backdrop-blur-md rounded-xl p-6 border ${ytdColors.border}`}
+          >
             <p className="text-white/60 text-xs mb-2">Year-to-Date</p>
-            <p className={`text-2xl font-bold ${ytdColors.text}`}>{formatDifference(ytdDifference)}</p>
+            <p className={`text-2xl font-bold ${ytdColors.text}`}>
+              {formatDifference(Math.round(ytdDifference))}
+            </p>
           </div>
         </div>
 
@@ -143,10 +175,13 @@ export default function LoopingDisplay({ bankingData, onBack, lastUpdated, isLoa
             <div
               className={`h-full transition-all duration-1000 
                           ${
-                            achievement >= 105 ? 'bg-blue-500' : 
-                            achievement >= 100 ? 'bg-green-500' : 
-                            achievement >= 75 ? 'bg-yellow-500' : 
-                            'bg-red-500'
+                            achievement >= 105
+                              ? "bg-blue-500"
+                              : achievement >= 100
+                              ? "bg-green-500"
+                              : achievement >= 75
+                              ? "bg-yellow-500"
+                              : "bg-red-500"
                           }
                         `}
               style={{ width: `${Math.min(achievement, 100)}%` }}
@@ -192,5 +227,5 @@ export default function LoopingDisplay({ bankingData, onBack, lastUpdated, isLoa
         }
       `}</style>
     </div>
-  )
+  );
 }

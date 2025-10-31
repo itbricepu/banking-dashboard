@@ -1,93 +1,93 @@
 {
   "data": {
     "Pinjaman": {
-      "current": 1398194,
-      "target": 1566133,
-      "previousDay": 1398984,
-      "previousMonth": 1414086,
-      "previousYear": 1569351,
+      "current": 1398960.04831866,
+      "target": 1566132.987627874,
+      "previousDay": 1398193.6171387,
+      "previousMonth": 1414085.94079809,
+      "previousYear": 1569350.97946165,
       "segments": [
         {
           "name": "Micro",
-          "value": 791773,
-          "target": 915185
+          "value": 791829.46204653,
+          "target": 915184.5420809512
         },
         {
           "name": "Small",
-          "value": 382215,
-          "target": 406587
+          "value": 383007.67568372993,
+          "target": 406586.8028637134
         },
         {
           "name": "Consumer",
-          "value": 224205,
-          "target": 244362
+          "value": 224122.9105884,
+          "target": 244361.64268320947
         }
       ]
     },
     "SML": {
-      "current": 153932,
-      "target": 62860,
-      "previousDay": 205931,
-      "previousMonth": 72712,
-      "previousYear": 56858,
+      "current": 115795.34494614,
+      "target": 62859.77545907175,
+      "previousDay": 153932.34563237,
+      "previousMonth": 72712.16106947,
+      "previousYear": 56858.4779497,
       "segments": [
         {
           "name": "Micro",
-          "value": 85789,
-          "target": 37260
+          "value": 62154.752495379995,
+          "target": 37259.74825091911
         },
         {
           "name": "Small",
-          "value": 61356,
-          "target": 23021
+          "value": 48982.06655476,
+          "target": 23021.260356661598
         },
         {
           "name": "Consumer",
-          "value": 6787,
-          "target": 2579
+          "value": 4658.525896,
+          "target": 2578.76685149105
         }
       ]
     },
     "NPL": {
-      "current": 78090,
-      "target": 65220,
-      "previousDay": 78567,
-      "previousMonth": 76609,
-      "previousYear": 57772,
+      "current": 77030.86413413,
+      "target": 65219.56597875351,
+      "previousDay": 78090.08733612999,
+      "previousMonth": 76608.7316244,
+      "previousYear": 57771.567275119996,
       "segments": [
         {
           "name": "Micro",
-          "value": 49094,
-          "target": 36742
+          "value": 48651.007952939995,
+          "target": 36741.747157194215
         },
         {
           "name": "Small",
-          "value": 25775,
-          "target": 26897
+          "value": 25158.83221679,
+          "target": 26896.51802763348
         },
         {
           "name": "Consumer",
-          "value": 3221,
-          "target": 1581
+          "value": 3221.0239644000003,
+          "target": 1581.30079392582
         }
       ]
     },
     "Recovery": {
-      "current": 25675,
-      "target": 35041,
-      "previousDay": 25367,
+      "current": 25749.249196549994,
+      "target": 35041.06043057853,
+      "previousDay": 25675.40066765,
       "previousMonth": 23448,
       "previousYear": 41944,
       "segments": [
         {
           "name": "Micro",
-          "value": 16939,
-          "target": 18624
+          "value": 17013.249196549994,
+          "target": 18624.22969869976
         },
         {
           "name": "Small",
           "value": 8736,
-          "target": 16417
+          "target": 16416.83073187877
         },
         {
           "name": "Consumer",
@@ -97,44 +97,44 @@
       ]
     },
     "Dana Pihak Ketiga": {
-      "current": 1286760,
-      "target": 1299159,
-      "previousDay": 1284490,
-      "previousMonth": 1293784,
+      "current": 1293164.57732373,
+      "target": 1299158.9329518161,
+      "previousDay": 1286759.85310036,
+      "previousMonth": 1293783.7411379,
       "previousYear": 1221569,
       "segments": [
         {
           "name": "Micro - Checking",
-          "value": 1213,
-          "target": 5371
+          "value": 1181.002335,
+          "target": 5371.3358614197705
         },
         {
           "name": "Micro - Deposits",
-          "value": 108368,
-          "target": 110957
+          "value": 108429.254656,
+          "target": 110956.94251938145
         },
         {
           "name": "Micro - Savings",
-          "value": 527509,
-          "target": 563814
+          "value": 527287.1199564498,
+          "target": 563813.6762717122
         },
         {
           "name": "Small - Checking",
-          "value": 116353,
-          "target": 97392
+          "value": 123438.14224253,
+          "target": 97392.3470977988
         },
         {
           "name": "Small - Deposits",
-          "value": 211545,
-          "target": 186994
+          "value": 211354.185886,
+          "target": 186993.895038478
         },
         {
           "name": "Small - Savings",
-          "value": 321771,
-          "target": 334631
+          "value": 321474.8722477501,
+          "target": 334630.736163026
         }
       ]
     }
   },
-  "lastUpdated": "2025-10-30T15:11:52.820Z"
+  "lastUpdated": "2025-10-31T10:14:04.429Z"
 }

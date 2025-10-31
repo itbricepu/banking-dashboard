@@ -1,34 +1,37 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import type { BankingMetrics } from "@/lib/banking-data"
-import { calculateAchievement, getAchievementColor } from "@/lib/achievement-utils"
-import { ArrowRight, Play, Upload, HelpCircle } from "lucide-react"
-import { useState, useRef } from "react"
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import type { BankingMetrics } from "@/lib/banking-data";
+import {
+  calculateAchievement,
+  getAchievementColor,
+} from "@/lib/achievement-utils";
+import { ArrowRight, Play, Upload, HelpCircle } from "lucide-react";
+import { useState, useRef } from "react";
 
 interface DashboardProps {
-  bankingData: Record<string, BankingMetrics>
-  onCategoryClick: (category: string) => void
-  onLooping: () => void
-  lastUpdated: Date
-  onViewFormatGuide?: () => void
-  onDataUpdate?: () => void
-  isLoading?: boolean
+  bankingData: Record<string, BankingMetrics>;
+  onCategoryClick: (category: string) => void;
+  onLooping: () => void;
+  lastUpdated: Date;
+  onViewFormatGuide?: () => void;
+  onDataUpdate?: () => void;
+  isLoading?: boolean;
 }
 
 function formatLastUpdated(date: Date): string {
-  const now = new Date()
-  const diffMs = now.getTime() - date.getTime()
-  const diffMins = Math.floor(diffMs / 60000)
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
 
-  if (diffMins < 1) return "Just now"
-  if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? "s" : ""} ago`
+  if (diffMins < 1) return "Just now";
+  if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? "s" : ""} ago`;
 
-  const diffHours = Math.floor(diffMins / 60)
-  if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? "s" : ""} ago`
+  const diffHours = Math.floor(diffMins / 60);
+  if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? "s" : ""} ago`;
 
   return date.toLocaleDateString("en-US", {
     month: "short",
@@ -36,7 +39,7 @@ function formatLastUpdated(date: Date): string {
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
-  })
+  });
 }
 
 export default function Dashboard({
@@ -48,45 +51,47 @@ export default function Dashboard({
   onDataUpdate,
   isLoading = false,
 }: DashboardProps) {
-  const categories = Object.keys(bankingData)
-  const fileInputRef = useRef<HTMLInputElement>(null)
-  const [isUploading, setIsUploading] = useState(false)
+  const categories = Object.keys(bankingData);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (!file) return
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
 
-    setIsUploading(true)
+    setIsUploading(true);
     try {
-      const formData = new FormData()
-      formData.append("file", file)
+      const formData = new FormData();
+      formData.append("file", file);
 
       const response = await fetch("/api/upload-excel", {
         method: "POST",
         body: formData,
-      })
+      });
 
       if (response.ok) {
-        const result = await response.json()
-        console.log("Excel data uploaded successfully:", result)
-        alert("Excel file uploaded successfully!")
+        const result = await response.json();
+        console.log("Excel data uploaded successfully:", result);
+        alert("Excel file uploaded successfully!");
         // Trigger data refetch
         if (onDataUpdate) {
-          onDataUpdate()
+          onDataUpdate();
         }
       } else {
-        throw new Error("Upload failed")
+        throw new Error("Upload failed");
       }
     } catch (error) {
-      console.error("Upload error:", error)
-      alert("Failed to upload Excel file")
+      console.error("Upload error:", error);
+      alert("Failed to upload Excel file");
     } finally {
-      setIsUploading(false)
+      setIsUploading(false);
       if (fileInputRef.current) {
-        fileInputRef.current.value = ""
+        fileInputRef.current.value = "";
       }
     }
-  }
+  };
 
   if (isLoading) {
     return (
@@ -96,7 +101,7 @@ export default function Dashboard({
           <p className="text-muted-foreground">Loading banking data...</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -104,12 +109,18 @@ export default function Dashboard({
       {/* Header with Last Updated */}
       <div className="flex justify-between items-start mb-12">
         <div>
-          <h1 className="text-4xl font-bold text-primary mb-2">Banking Performance Dashboard</h1>
-          <p className="text-muted-foreground text-lg">Achievement Data Overview</p>
+          <h1 className="text-4xl font-bold text-primary mb-2">
+            Banking Performance Dashboard
+          </h1>
+          <p className="text-muted-foreground text-lg">
+            Achievement Data Overview
+          </p>
         </div>
         <div className="text-right">
           <p className="text-sm text-muted-foreground">Last Updated</p>
-          <p className="text-lg font-semibold text-primary">{formatLastUpdated(lastUpdated)}</p>
+          <p className="text-lg font-semibold text-primary">
+            {formatLastUpdated(lastUpdated)}
+          </p>
         </div>
       </div>
 
@@ -117,9 +128,13 @@ export default function Dashboard({
       <div className="flex-1 overflow-y-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-8">
           {categories.map((category) => {
-            const data = bankingData[category]
-            const achievement = calculateAchievement(data.current, data.target, category)
-            const colors = getAchievementColor(achievement)
+            const data = bankingData[category];
+            const achievement = calculateAchievement(
+              data.current,
+              data.target,
+              category
+            );
+            const colors = getAchievementColor(achievement);
 
             return (
               <Card
@@ -128,35 +143,52 @@ export default function Dashboard({
                 onClick={() => onCategoryClick(category)}
               >
                 <div className="flex justify-between items-start mb-4">
-                  <h2 className="text-xl font-semibold text-primary">{category}</h2>
+                  <h2 className="text-xl font-semibold text-primary">
+                    {category}
+                  </h2>
                   <ArrowRight className="w-5 h-5 text-secondary" />
                 </div>
 
                 <div className="space-y-3">
                   <div>
-                    <p className="text-sm text-muted-foreground">Current Value</p>
-                    <p className="text-2xl font-bold text-foreground">{data.current.toLocaleString()}</p>
+                    <p className="text-sm text-muted-foreground">
+                      Current Value
+                    </p>
+                    <p className="text-2xl font-bold text-foreground">
+                      {Math.round(data.current).toLocaleString()}
+                    </p>
                   </div>
 
                   <div>
                     <p className="text-sm text-muted-foreground">RKA Target</p>
-                    <p className="text-lg font-semibold text-foreground">{data.target.toLocaleString()}</p>
+                    <p className="text-lg font-semibold text-foreground">
+                      {Math.round(data.target).toLocaleString()}
+                    </p>
                   </div>
 
-                  <div className={`pt-3 border-t-2 ${colors.border} rounded-lg p-3 ${colors.bg}`}>
+                  <div
+                    className={`pt-3 border-t-2 ${colors.border} rounded-lg p-3 ${colors.bg}`}
+                  >
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-muted-foreground">Achievement</span>
-                      <span className={`text-lg font-bold ${colors.text}`}>{achievement}%</span>
+                      <span className="text-sm font-medium text-muted-foreground">
+                        Achievement
+                      </span>
+                      <span className={`text-lg font-bold ${colors.text}`}>
+                        {achievement}%
+                      </span>
                     </div>
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-2">
                       <div
                         className={`h-2 rounded-full transition-all 
                           ${
-                          achievement >= 105 ? 'bg-blue-500' : 
-                          achievement >= 100 ? 'bg-green-500' : 
-                          achievement >= 75 ? 'bg-yellow-500' : 
-                          'bg-red-500'
-                        }
+                            achievement >= 105
+                              ? "bg-blue-500"
+                              : achievement >= 100
+                              ? "bg-green-500"
+                              : achievement >= 75
+                              ? "bg-yellow-500"
+                              : "bg-red-500"
+                          }
               `}
                         style={{ width: `${Math.min(achievement, 100)}%` }}
                       />
@@ -164,7 +196,7 @@ export default function Dashboard({
                   </div>
                 </div>
               </Card>
-            )
+            );
           })}
         </div>
       </div>
@@ -205,5 +237,5 @@ export default function Dashboard({
         </Button>
       </div>
     </div>
-  )
+  );
 }
